@@ -1,0 +1,16 @@
+B:\Projects\Exam-System\ExaminationSystem\bin\Debug\net5.0\ExaminationSystem.exe
+B:\Projects\Exam-System\ExaminationSystem\bin\Debug\net5.0\ExaminationSystem.deps.json
+B:\Projects\Exam-System\ExaminationSystem\bin\Debug\net5.0\ExaminationSystem.runtimeconfig.json
+B:\Projects\Exam-System\ExaminationSystem\bin\Debug\net5.0\ExaminationSystem.runtimeconfig.dev.json
+B:\Projects\Exam-System\ExaminationSystem\bin\Debug\net5.0\ExaminationSystem.dll
+B:\Projects\Exam-System\ExaminationSystem\bin\Debug\net5.0\ExaminationSystem.pdb
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ExaminationSystem.GeneratedMSBuildEditorConfig.editorconfig
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ExaminationSystem.AssemblyInfoInputs.cache
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ExaminationSystem.AssemblyInfo.cs
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ExaminationSystem.csproj.CoreCompileInputs.cache
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ExaminationSystem.sourcelink.json
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ExaminationSystem.dll
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\refint\ExaminationSystem.dll
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ExaminationSystem.pdb
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ExaminationSystem.genruntimeconfig.cache
+B:\Projects\Exam-System\ExaminationSystem\obj\Debug\net5.0\ref\ExaminationSystem.dll
