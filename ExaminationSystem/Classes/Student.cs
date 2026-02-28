@@ -15,6 +15,9 @@ namespace ExaminationSystem.Classes
             Name = name;
             Email = email;
         }
-        void HandleExamNotification(object sender, ExamEvent) 
+        void HandleExamNotification(object sender, ExamEventArgs ex)
+        {
+
+        }
     }
 }
