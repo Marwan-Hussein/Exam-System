@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using static System.Console;
 
 namespace ExaminationSystem.Classes
 {
@@ -11,32 +13,55 @@ namespace ExaminationSystem.Classes
         internal QuestionList(string logFilePath)
         {
             LogFilePath = logFilePath;
-            if (File.Exists(logFilePath))
+            InitializeFromFile();
+        }
+
+        private void InitializeFromFile()
+        {
+            if (File.Exists(LogFilePath))
             {
-                var lastId = LoadFromFile().Max(q => q.QuestionId);
-                _nextQuestionId = lastId+1;
+                var questions = LoadFromFile();
+                if (questions.Any())
+                {
+                    var lastId = questions.Max(q => q.QuestionId);
+                    _nextQuestionId = lastId + 1;
+
+                    foreach(var q in questions)
+                        base.Add(q);
+                }
             }
         }
         public static int? GetQuestionId() => _nextQuestionId++;
 
         public new void Add(Question question)
         {
-            question.QuestionId = _nextQuestionId++;
+            if(!question.QuestionId.HasValue || question.QuestionId == 0)
+                question.QuestionId = _nextQuestionId++;
+            //question.QuestionId = _nextQuestionId++; // (only in case it doesn't have id yet)
             base.Add(question);
             LogToFile(question);
         }
 
         public void AddRange(IEnumerable<Question> questions)
         {
-
+            foreach (var q in questions)
+                Add(q);
         }
 
         public void LogToFile(Question q)
         {
-            using (StreamWriter sw = new StreamWriter(LogFilePath, true))
+            try
             {
-                // Question form: Type|Id|Header|Marks|Body
-                sw.WriteLine(q.ToString());
+                using (StreamWriter sw = new StreamWriter(LogFilePath, true))
+                {
+                    // Question form: Type|Id|Header|Marks|Body
+                    sw.WriteLine(q.ToString());
+                }
+            }
+
+            catch(Exception ex)
+            {
+                WriteLine($"Error logging to the file {LogFilePath}!");
             }
         }
 
@@ -44,7 +69,9 @@ namespace ExaminationSystem.Classes
         {
             // Question form: Type|Id|Header|Marks|Body
             List<Question> list = new List<Question>();
-            if (File.Exists(LogFilePath))
+            if (!File.Exists(LogFilePath))
+                return list;
+            try
             {
                 using (StreamReader sr = new StreamReader(LogFilePath))
                 {
@@ -52,14 +79,50 @@ namespace ExaminationSystem.Classes
                     while ((line = sr.ReadLine()) != null)
                     {
                         var parts = line.Split('|');
+                        if(parts.Length < 5)
+                            continue;
 
-                        int.TryParse(parts[0], out int id);
-                        string header = parts[1];
-                        double.TryParse(parts[2], out double marks);
-                        string body = parts[3];
-                        list.Add(new Question(id, header, body, marks));
+                        string type = parts[0];
+                        int.TryParse(parts[1], out int id);
+                        string header = parts[2];
+                        double.TryParse(parts[3], out double marks);
+                        string body = parts[4];
+                        // parts.Lenght must be min 5 here
+
+                        Question question = null;
+
+                        //list.Add(new Question(id, header, body, marks));
+                        switch (type)
+                        {
+                            case nameof(TFQuestion): // format: base(parts in previous)|{CorrectAnswer}
+                                if(parts.Length > 5 && bool.TryParse(parts[5], out bool ans))
+                                    question = new TFQuestion(id, header, body, marks, ans);
+                                break;
+
+                            case nameof(ChooseOneQuestion): // format: base(parts in previous)|CorrectIndex'\n'Options
+                                if(parts.Length > 5)
+                                {
+                                    var CorrectAndOptions = parts[5].Split('\n');
+                                    int.TryParse(CorrectAndOptions[0], out int coreectIdx);
+                                    string[] options = new string[CorrectAndOptions.Length-1];
+                                    Array.Copy(CorrectAndOptions, 1, options, 0, CorrectAndOptions.Length - 1);
+
+                                    question = new ChooseOneQuestion(id, header, body, marks, coreectIdx, options.ToList());
+                                }
+                                break;
+                            case nameof(ChooseAllQuestion): // format: base(parts in previous)
+
+                            default:
+                                continue; // not of the previous types
+                        }
+                    
                     }
                 }
+            }
+
+            catch (Exception ex)
+            {
+                WriteLine($"Error logging to the file {LogFilePath}!");
             }
             return list;
         }

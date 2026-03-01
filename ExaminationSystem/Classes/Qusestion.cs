@@ -65,11 +65,11 @@ namespace ExaminationSystem.Classes
         {
             CorrectAnswer = answer;
         }
-        /*internal TFQuestion(int? id, string header, string body, double marks, bool answer) :
+        internal TFQuestion(int? id, string header, string body, double marks, bool answer) :
             base(id, header, body, marks)
         {
             CorrectAnswer = answer;
-        }*/
+        }
         #endregion
 
         public override void Display()
@@ -99,12 +99,12 @@ namespace ExaminationSystem.Classes
             CorrectAnswerIdx = answer;
             Options = options?? new List<string>();
         }
-        /*internal ChooseOneQuestion(int? id,string header, string body, double marks, int answer, List<string> options)
-            : base(id,header, body, marks)
+        internal ChooseOneQuestion(int? id, string header, string body, double marks, int answer, List<string> options)
+            : base(id, header, body, marks)
         {
             CorrectAnswerIdx = answer;
             Options = options ?? new List<string>();
-        }*/
+        }
         #endregion
 
         public override void Display()
@@ -120,7 +120,7 @@ namespace ExaminationSystem.Classes
         public override string ToString()
         {
             string optionsString = string.Join("\n", Options);
-            return base.ToString() + $"|{CorrectAnswerIdx}|{optionsString}";
+            return base.ToString() + $"|{CorrectAnswerIdx}\n{optionsString}";
         }
     }
 
