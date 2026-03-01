@@ -164,9 +164,9 @@ namespace ExaminationSystem.Classes
 
         public override string ToString()
         {
-            string correctAnsstr = string.Join(" | ", CorrectAnswers);
+            string correctAnsstr = string.Join(", ", CorrectAnswers);
             string optionsStr = string.Join("\n", Options);
-            return base.ToString() + $"\t{correctAnsstr}\n{optionsStr}";
+            return base.ToString() + $"|{correctAnsstr}\n{optionsStr}";
         }
     }
 }

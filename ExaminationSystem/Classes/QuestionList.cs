@@ -82,6 +82,7 @@ namespace ExaminationSystem.Classes
                         if(parts.Length < 5)
                             continue;
 
+                        // base.ToString() parsing
                         string type = parts[0];
                         int.TryParse(parts[1], out int id);
                         string header = parts[2];
@@ -110,11 +111,33 @@ namespace ExaminationSystem.Classes
                                     question = new ChooseOneQuestion(id, header, body, marks, coreectIdx, options.ToList());
                                 }
                                 break;
-                            case nameof(ChooseAllQuestion): // format: base(parts in previous)
+
+                            case nameof(ChooseAllQuestion): // format: base(parts in previous)|CA1,ca2'\n'op1'\n'op2..
+                                if(parts.Length > 5)
+                                {
+                                    var answers_options = parts[5].Split(", ");
+                                    var lastAns_Options = answers_options[answers_options.Length - 1].Split('\n'); // last answer + options
+
+                                    int AnswersSize = answers_options.Length - lastAns_Options.Length +1;
+                                    int OptionsSize = lastAns_Options.Length - 1;
+
+                                    int[] AnswersOnly = new int[AnswersSize];
+                                    string[] OptionsOnly = new string[OptionsSize];
+
+                                    Array.Copy(answers_options, 0, AnswersOnly, 0, AnswersSize);
+                                    Array.Copy(lastAns_Options, 1, OptionsOnly, 0, OptionsSize);
+
+                                    question = new ChooseAllQuestion(id, header, body, marks, AnswersOnly.ToList(), OptionsOnly.ToList());
+
+                                }
+                                break;
 
                             default:
                                 continue; // not of the previous types
                         }
+
+                        if(question != null)
+                            list.Add(question);
                     
                     }
                 }
