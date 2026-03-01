@@ -8,7 +8,7 @@ namespace ExaminationSystem.Classes
     {
         internal string LogFilePath { private set; get; }
         private static int? _nextQuestionId = 1;
-        QuestionList(string logFilePath)
+        internal QuestionList(string logFilePath)
         {
             LogFilePath = logFilePath;
             if (File.Exists(logFilePath))
