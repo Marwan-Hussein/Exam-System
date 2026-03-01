@@ -2,7 +2,7 @@
 using static System.Console;
 namespace ExaminationSystem.Classes
 {
-    internal abstract class Question
+    internal class Question
     {
         #region properties
         internal int? QuestionId {get; set;}
@@ -31,7 +31,7 @@ namespace ExaminationSystem.Classes
             return $"{QuestionId}|{Header}|{Marks}|{Body}";
         }
 
-        public abstract void Display();
+        public virtual void Display() { }
 
     }
 

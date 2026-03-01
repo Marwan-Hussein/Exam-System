@@ -7,7 +7,7 @@ namespace ExaminationSystem.Classes
     internal class QuestionList : List<Question>
     {
         internal string LogFilePath { private set; get; }
-        private static int _nextQuestionId = 1;
+        private static int? _nextQuestionId = 1;
         QuestionList(string logFilePath)
         {
             LogFilePath = logFilePath;
@@ -17,7 +17,7 @@ namespace ExaminationSystem.Classes
                 _nextQuestionId = lastId+1;
             }
         }
-        public static int GetQuestionId() => _nextQuestionId++;
+        public static int? GetQuestionId() => _nextQuestionId++;
 
         public new void Add(Question question)
         {
