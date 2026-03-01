@@ -6,8 +6,7 @@ namespace ExaminationSystem
     {
         static void Main(string[] args)
         {
-            FliesOperators.CreateFolderInMain("Exams");
-            FliesOperators.CreateFolderInMain("Answers");
+            FilesOperations.CreateMainFolders(); // creates Exams, Answers folder
 
         }
     }

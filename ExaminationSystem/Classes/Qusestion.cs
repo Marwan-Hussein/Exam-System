@@ -18,7 +18,18 @@
             Body = body;
             Marks = marks;
         }
+        internal Question(int id, string header, string body, double marks) : this(header, body, marks)
+        {
+            QuestionId = id;
+        }
         #endregion
+
+        public override string ToString()
+        {
+            // Question form: Id|Header|Marks|Body
+            return $"{QuestionId}|{Header}|{Marks}|{Body}";
+        }
+
     }
 
     internal class TFQuestion : Question
