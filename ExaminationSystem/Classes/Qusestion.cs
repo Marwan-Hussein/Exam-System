@@ -14,7 +14,7 @@ namespace ExaminationSystem.Classes
 
         #region Constructors
         internal Question() { }
-        internal Question(int id, string header, string body, double marks)
+        internal Question(int? id, string header, string body, double marks)
         {
             QuestionId = id;
             Header = header;
