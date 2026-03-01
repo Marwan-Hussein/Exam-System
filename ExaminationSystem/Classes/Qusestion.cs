@@ -26,11 +26,6 @@ namespace ExaminationSystem.Classes
             : this(QuestionList.GetQuestionId(), header, body, marks){}
         #endregion
 
-        public override string ToString()
-        {
-            // Question form: Type|Id|Header|Marks|Body
-            return $"{GetType().Name}|{QuestionId}|{Header}|{Marks}|{Body}";
-        }
 
         public abstract void Display();
 
@@ -51,6 +46,11 @@ namespace ExaminationSystem.Classes
         }
         public override int GetHashCode() { return QuestionId.GetHashCode(); }
         #endregion
+        public override string ToString()
+        {
+            // Question form: Type|Id|Header|Marks|Body
+            return $"{GetType().Name}|{QuestionId}|{Header}|{Marks}|{Body}";
+        }
 
     }
 

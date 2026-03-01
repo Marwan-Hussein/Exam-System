@@ -115,20 +115,10 @@ namespace ExaminationSystem.Classes
                             case nameof(ChooseAllQuestion): // format: base(parts in previous)|CA1,ca2'\n'op1'\n'op2..
                                 if(parts.Length > 5)
                                 {
-                                    var answers_options = parts[5].Split(", ");
-                                    var lastAns_Options = answers_options[answers_options.Length - 1].Split('\n'); // last answer + options
-
-                                    int AnswersSize = answers_options.Length - lastAns_Options.Length +1;
-                                    int OptionsSize = lastAns_Options.Length - 1;
-
-                                    int[] AnswersOnly = new int[AnswersSize];
-                                    string[] OptionsOnly = new string[OptionsSize];
-
-                                    Array.Copy(answers_options, 0, AnswersOnly, 0, AnswersSize);
-                                    Array.Copy(lastAns_Options, 1, OptionsOnly, 0, OptionsSize);
-
+                                    var lines = parts[5].Split('\n');
+                                    var AnswersOnly = lines[0].Split(", ").Select(int.Parse).ToList();
+                                    var OptionsOnly = lines.Skip(1).ToList();
                                     question = new ChooseAllQuestion(id, header, body, marks, AnswersOnly.ToList(), OptionsOnly.ToList());
-
                                 }
                                 break;
 
