@@ -1,9 +1,9 @@
 ﻿namespace ExaminationSystem.Classes
 {
-    internal class Question
+    internal abstract class Question
     {
         #region properties
-        internal int QuestionId {get; set;}
+        internal int? QuestionId {get; set;}
         internal string Header{get; set;}
         internal string Body {get; set;}
         internal double Marks {get; set;}
@@ -12,16 +12,15 @@
 
         #region Constructors
         internal Question() { }
-        internal Question(string header, string body, double marks)
+        internal Question(int id, string header, string body, double marks)
         {
+            QuestionId = id;
             Header = header;
             Body = body;
             Marks = marks;
         }
-        internal Question(int id, string header, string body, double marks) : this(header, body, marks)
-        {
-            QuestionId = id;
-        }
+        internal Question(string header, string body, double marks) : this(QuestionList.GetQuestionId(), header, body, marks)
+        {}
         #endregion
 
         public override string ToString()
@@ -30,10 +29,16 @@
             return $"{QuestionId}|{Header}|{Marks}|{Body}";
         }
 
+        public abstract void Display();
+
     }
 
     internal class TFQuestion : Question
     {
+        internal bool CorrectAnswer { get; set;}
+
+        internal TFQuestion() { }
+        internal TFQuestion(string header, string body, double marks) : base(header, body, marks) { }
 
     }
 }
