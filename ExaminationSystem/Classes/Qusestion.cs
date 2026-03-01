@@ -1,4 +1,5 @@
-﻿namespace ExaminationSystem.Classes
+﻿using static System.Console;
+namespace ExaminationSystem.Classes
 {
     internal abstract class Question
     {
@@ -38,7 +39,14 @@
         internal bool CorrectAnswer { get; set;}
 
         internal TFQuestion() { }
-        internal TFQuestion(string header, string body, double marks) : base(header, body, marks) { }
-
+        internal TFQuestion(string header, string body, double marks, bool answer) : base(header, body, marks)
+        {
+            CorrectAnswer = answer;
+        }
+        public override void Display()
+        {
+            WriteLine($"Q{QuestionId}. {Header} | {Marks} Marks\n{Body}");
+            WriteLine("a) True\tb) False");
+        }
     }
 }
