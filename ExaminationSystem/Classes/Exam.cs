@@ -29,7 +29,7 @@ namespace ExaminationSystem.Classes
             ExamSubject = subject;
         }
 
-        void ChangeMode(ExamMode newMode) 
+        internal void ChangeMode(ExamMode newMode) 
         { Mode = newMode; }
         internal abstract void ShowExam();
     }

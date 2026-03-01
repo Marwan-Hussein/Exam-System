@@ -35,14 +35,14 @@ namespace ExaminationSystem.Classes
         {
             using (StreamWriter sw = new StreamWriter(LogFilePath, true))
             {
-                // Question form: Id|Header|Marks|Body
+                // Question form: Type|Id|Header|Marks|Body
                 sw.WriteLine(q.ToString());
             }
         }
 
         public List<Question> LoadFromFile()
         {
-            // Question form: Id|Header|Marks|Body
+            // Question form: Type|Id|Header|Marks|Body
             List<Question> list = new List<Question>();
             if (File.Exists(LogFilePath))
             {
