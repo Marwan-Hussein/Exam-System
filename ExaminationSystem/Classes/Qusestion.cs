@@ -1,4 +1,5 @@
-﻿using static System.Console;
+﻿using System.Collections.Generic;
+using static System.Console;
 namespace ExaminationSystem.Classes
 {
     internal abstract class Question
@@ -46,7 +47,42 @@ namespace ExaminationSystem.Classes
         public override void Display()
         {
             WriteLine($"Q{QuestionId}. {Header} | {Marks} Marks\n{Body}");
-            WriteLine("a) True\tb) False");
+            WriteLine($"Answer: {CorrectAnswer}");
+        }
+    }
+
+    internal class ChooseOneQuestion : Question
+    {
+        internal int CorrectAnswerIdx { get; set; }
+
+        internal ChooseOneQuestion() { }
+        internal ChooseOneQuestion(string header, string body, double marks, int answer) : base(header, body, marks)
+        {
+            CorrectAnswerIdx = answer;
+        }
+        public override void Display()
+        {
+            WriteLine($"Q{QuestionId}. {Header} | {Marks} Marks\n{Body}");
+            WriteLine($"Answer: {CorrectAnswerIdx}");
+        }
+    }
+
+    internal class ChooseAllQuestion : Question
+    {
+        internal List<int> CorrectAnswers { get; set; }
+
+        internal ChooseAllQuestion() { }
+        internal ChooseAllQuestion(string header, string body, double marks, List<int> answers) : base(header, body, marks)
+        {
+            CorrectAnswers = answers;
+        }
+        public override void Display()
+        {
+            WriteLine($"Q{QuestionId}. {Header} | {Marks} Marks\n{Body}");
+            Write("Answers: ");
+            foreach (var ans in CorrectAnswers)
+                Write(ans);
+            WriteLine();
         }
     }
 }
