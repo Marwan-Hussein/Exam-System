@@ -34,11 +34,11 @@ namespace ExaminationSystem.Classes
 
         #region iFace implementations and overrides
         public object Clone() => new Student(Id,Name, Email);
-        public int CompareTo(object obj)
+        public int CompareTo(Student Std)
         {
-            if(obj is Student Std)
-                return Id.CompareTo(Std.Id);
-            return 1;
+            if (Std == null)
+                return 1;
+            return Id.CompareTo(Std.Id);
         }
         public override string ToString()
             => $"ID: {Id}\t Name: {Name}\t Email: {Email}";
