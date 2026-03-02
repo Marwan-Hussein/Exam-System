@@ -1,13 +1,19 @@
-﻿using System.Reflection.Metadata;
+﻿using static System.Console;
+using System;
+using System.Reflection.Metadata;
 
 namespace ExaminationSystem.Classes
 {
-    internal class Student
+    internal class Student : ICloneable, IComparable<Student>
     {
+        #region properties
         internal int Id { get; set; }
         internal string Name { get; set; }
         internal string Email { get; set; }
 
+        #endregion
+
+        #region Ctors
         internal Student() { }
         internal Student(int id, string name, string email)
         {
@@ -15,9 +21,38 @@ namespace ExaminationSystem.Classes
             Name = name;
             Email = email;
         }
-        void HandleExamNotification(object sender, ExamEventArgs ex)
-        {
 
+        #endregion
+        internal void HandleExamNotification(object sender, ExamEventArgs ex)
+        {
+            WriteLine($"\nNotification for: {Name} ({Email})");
+            WriteLine($"Exam: {ex.ExamName}");
+            WriteLine($"Status: {ex.CurrentMode}");
+            WriteLine($"Time: {ex.NotificationTime}");
+            WriteLine("___________________________\n");
         }
+
+        #region iFace implementations and overrides
+        public object Clone() => new Student(Id,Name, Email);
+        public int CompareTo(object obj)
+        {
+            if(obj is Student Std)
+                return Id.CompareTo(Std.Id);
+            return 1;
+        }
+        public override string ToString()
+            => $"ID: {Id}\t Name: {Name}\t Email: {Email}";
+        public override bool Equals(object obj)
+        {
+            if(obj is Student Std)
+                return Id.Equals(Std.Id);
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+        #endregion
     }
 }
