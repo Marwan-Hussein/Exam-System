@@ -42,7 +42,7 @@ namespace ExaminationSystem.Classes
 
         #endregion
 
-
+        #region methods
         internal void ChangeMode(ExamMode newMode) 
         {
             ExamMode oldMode = Mode;
@@ -50,8 +50,21 @@ namespace ExaminationSystem.Classes
             OnExamStatusChanged(new ExamEventArgs(newMode, ExamSubject.SubjectName,
                 $"Exam mode changed from {oldMode} to {newMode}"
                 ));
-            
         }
+        internal void EnrollStudent(Student student)
+        {
+            if (!EnrolledStudents.Contains(student))
+            {
+                EnrolledStudents.Add(student);
+                ExamStatusChanged += student.HandleExamNotification;
+            }
+        }
+
+        internal void SubmitAnswers(AnswerSet answers)
+        {
+            Submissions.Add(answers);
+        }
+        #endregion
 
         #region For Children
         protected virtual void OnExamStatusChanged(ExamEventArgs e)
