@@ -14,9 +14,11 @@ namespace ExaminationSystem.Classes
         }
 
         public int Id {  get; set; }
-        public double Mark {  get; set; }
+        public double Marks {  get; set; }
         public bool IsCorrect { get; set; }
     }
+
+
     // answers for one exam
     internal class AnswerList
     {
@@ -57,14 +59,15 @@ namespace ExaminationSystem.Classes
         {
             double score = 0;
 
-            foreach (Answer ans in Answers)
+            var info = GetResults(questions);
+            foreach (var answer in info)
             {
-                Question question = questions.FirstOrDefault(q => q.QuestionId == ans.QuestionId);
-                if (question != null && ans.IsCorrect(question))
-                    score += question.Marks;
+                if (answer.IsCorrect)
+                    score += answer.Marks;
             }
             return (int)Math.Round(score);
         }
+
         internal List<QuestionInfo> GetResults(QuestionList questions)
         {
             var result = new List<QuestionInfo>();
@@ -75,6 +78,11 @@ namespace ExaminationSystem.Classes
                     result.Add(new QuestionInfo(question.QuestionId.Value, question.Marks ,ans.IsCorrect(question)));
             }
             return result;
+        }
+
+        public override string ToString()
+        {
+            return $"Student {StudentId} - Submitted: {SubmissionTime} - Answers: {Answers.Count}";
         }
     }
 }
