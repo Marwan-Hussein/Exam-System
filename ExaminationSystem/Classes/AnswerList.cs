@@ -9,7 +9,7 @@ namespace ExaminationSystem.Classes
         public QuestionInfo(int id, double mark, bool isCorrect)
         {
             Id = id;
-            Mark = mark;
+            Marks = mark;
             IsCorrect = isCorrect;
         }
 
