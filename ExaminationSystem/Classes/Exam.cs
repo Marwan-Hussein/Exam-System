@@ -66,6 +66,38 @@ namespace ExaminationSystem.Classes
         }
         #endregion
 
+
+        #region Interfaces implementations and Overrides
+        public object Clone()
+        {
+            Exam cloned = (Exam)MemberwiseClone();
+            cloned.ExamSubject = new Subject(ExamSubject);
+            cloned.Questions = new QuestionList(Questions.LogFilePath);
+            cloned.EnrolledStudents = new List<Student>(EnrolledStudents);
+            cloned.CorrectAnswers = new Dictionary<int, Answer>(CorrectAnswers);
+            cloned.Submissions = new List<AnswerSet>(Submissions);
+            return cloned;
+        }
+
+        public int CompareTo(Exam other)
+        {
+            if (other == null) return 1;
+            return Duration.CompareTo(other.Duration);
+        }
+
+        public override string ToString()
+            => $"Exam{ExamId}-{ExamSubject.SubjectName}\t Duration: {Duration}\t Mode: {Mode}";
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Exam exam)
+                return ExamId.Equals(exam.ExamId);
+            return false;
+        }
+        public override int GetHashCode()
+            => ExamId.GetHashCode();
+        
+        #endregion
         #region For Children
         protected virtual void OnExamStatusChanged(ExamEventArgs e)
         {
