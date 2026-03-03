@@ -15,7 +15,7 @@ namespace ExaminationSystem.Classes
         #region Properties
         internal int ExamId { get; set; }
         internal TimeSpan Duration { get; set; }
-        internal int NumberOfQuestions { get; set; }
+        //internal int NumberOfQuestions { get; set; }
         internal Dictionary<int, Answer> CorrectAnswers { get; set; } // <QuestionID, CorrectAnswer>
         internal Subject ExamSubject { get; set; }
         internal ExamMode Mode { get; set; }
@@ -114,9 +114,39 @@ namespace ExaminationSystem.Classes
         internal PracticeExam(TimeSpan duration, Subject subject) : base(duration, subject) { }
     
         internal override void ShowExam() {
-            foreach (var item in Answers)
+            WriteLine('\n'+new string('=', 50));
+            WriteLine($"Pratice Exam - {ExamSubject.SubjectName}");
+            WriteLine(new string('=', 50));
+
+            WriteLine($"Duration: {Duration}\t Number of Questions: {Questions.Count}");
+            WriteLine($"Qustions With Correct Answers: ");
+            foreach(Question q in Questions)
             {
-                WriteLine(item);
+                q.Display();
+                WriteLine("\nCorrectAnswer: " + GetCorrectAnswer(q));
+                WriteLine(new string('-', 25));
+            }
+
+        }
+
+        private string GetCorrectAnswer(Question q)
+        {
+            switch(q.GetType().Name)
+            {
+                case nameof(TFQuestion):
+                    TFQuestion tfq = q as TFQuestion;
+                    return tfq.CorrectAnswer.ToString();
+
+                case nameof(ChooseOneQuestion):
+                    ChooseOneQuestion ch1q = q as ChooseOneQuestion;
+                    return (ch1q.CorrectAnswerIdx + 1).ToString();
+                
+                case nameof(ChooseAllQuestion):
+                    ChooseAllQuestion chAllQ = q as ChooseAllQuestion;
+                    return string.Join(", ", chAllQ.CorrectAnswers);
+
+                default:
+                    return "N/A";
             }
         }
     }

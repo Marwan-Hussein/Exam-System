@@ -19,7 +19,7 @@ namespace ExaminationSystem.Classes
     }
 
 
-    // answers for one exam
+    // correct answers for one exam
     internal class AnswerList
     {
         internal List<Answer> Answers { get; set; }
