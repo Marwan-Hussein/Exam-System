@@ -16,7 +16,7 @@ namespace ExaminationSystem.Classes
         #region Properties
         internal int ExamId { get; set; }
         internal TimeSpan Duration { get; set; }
-        //internal int NumberOfQuestions { get; set; }
+        internal int NumberOfQuestions { get; set; }
         internal Dictionary<int, Answer> CorrectAnswers { get; set; } // <QuestionID, CorrectAnswer>
         internal Subject ExamSubject { get; set; }
         internal ExamMode Mode { get; set; }
@@ -74,6 +74,8 @@ namespace ExaminationSystem.Classes
             Exam cloned = (Exam)MemberwiseClone();
             cloned.ExamSubject = new Subject(ExamSubject);
             cloned.Questions = new QuestionList(Questions.LogFilePath);
+            cloned.NumberOfQuestions = cloned.Questions.Count;
+
             cloned.EnrolledStudents = new List<Student>(EnrolledStudents);
             cloned.CorrectAnswers = new Dictionary<int, Answer>(CorrectAnswers);
             cloned.Submissions = new List<AnswerSet>(Submissions);
