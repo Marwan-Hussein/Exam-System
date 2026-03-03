@@ -1,0 +1,10 @@
+TFQuestion|1|Is the earth round?|1|Basic geography|True
+ChooseOneQuestion|2|What is 2+2?|1|Simple arithmetic|1
+3
+4
+5
+ChooseAllQuestion|3|Select the prime numbers.|2|Number theory|1, 3
+4
+3
+7
+8
