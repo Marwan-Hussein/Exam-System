@@ -126,7 +126,6 @@ namespace ExaminationSystem.Classes
                 WriteLine("\nCorrectAnswer: " + GetCorrectAnswer(q));
                 WriteLine(new string('-', 25));
             }
-
         }
 
         private string GetCorrectAnswer(Question q)
@@ -158,9 +157,16 @@ namespace ExaminationSystem.Classes
 
         internal override void ShowExam()
         {
-            foreach (var item in Answers)
+            WriteLine('\n' + new string('=', 50));
+            WriteLine($"Final Exam - {ExamSubject.SubjectName}");
+            WriteLine(new string('=', 50));
+
+            WriteLine($"Duration: {Duration}\t Number of Questions: {Questions.Count}");
+            WriteLine($"Qustions: ");
+            foreach (Question q in Questions)
             {
-                WriteLine(item);
+                q.Display();
+                WriteLine(new string('-', 25));
             }
         }
     }
