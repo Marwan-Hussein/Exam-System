@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using static System.Console;
 namespace ExaminationSystem.Classes
 {
@@ -166,6 +167,25 @@ namespace ExaminationSystem.Classes
             foreach (Question q in Questions)
             {
                 q.Display();
+                WriteLine(new string('-', 25));
+            }
+        }
+
+        internal void ShowResults()
+        {
+            WriteLine("\n"+ new string('=',50));
+            WriteLine($"Exam Results - {ExamSubject.SubjectName}");
+            WriteLine("\n" + new string('=', 50));
+
+            foreach(var submission in Submissions)
+            {
+                double score = submission.CalculateScore(Questions);
+                double totalScore = Questions.Sum(q => q.Marks);
+                WriteLine($"Sudent {submission.StudentId}: {score}/{totalScore}");
+
+                var results = submission.GetResults(Questions);
+                foreach (var result in results)
+                    WriteLine($"\tQ{result.Id}: {(result.IsCorrect ? "✅" : "❌")}");
                 WriteLine(new string('-', 25));
             }
         }
