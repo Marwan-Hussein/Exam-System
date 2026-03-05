@@ -29,7 +29,7 @@ namespace ExaminationSystem
             FilesOperations.CreateMainFolders();
 
             // build a subject and a persistent question list
-            Subject subject = new Subject(1, "Csharp", "Eng. Abdelrahman Elwakeel");
+            Subject subject = new Subject(1, "Mathematics", "Dr. Ada Lovelace");
             string questionsFile = Path.Combine(FilesOperations.GetExamsFolder(), "math_questions.txt");
             QuestionList qList = new QuestionList(questionsFile);
             EnsureSampleQuestions(qList);
@@ -48,12 +48,12 @@ namespace ExaminationSystem
             };
 
             // enroll students so notifications fire
-            Student maro = new Student(1, "Maro", "marwan.hussein@gmail.com");
-            Student john   = new Student(2, "John",   "John@gmail.com");
-            practiceExam.EnrollStudent(maro);
-            practiceExam.EnrollStudent(john);
-            finalExam.EnrollStudent(maro);
-            finalExam.EnrollStudent(john);
+            Student alice = new Student(1, "Alice", "alice@example.com");
+            Student bob   = new Student(2, "Bob",   "bob@example.com");
+            practiceExam.EnrollStudent(alice);
+            practiceExam.EnrollStudent(bob);
+            finalExam.EnrollStudent(alice);
+            finalExam.EnrollStudent(bob);
 
             // let user choose exam type
             WriteLine("Select exam type to display:");
